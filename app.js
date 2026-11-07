@@ -307,7 +307,7 @@ async function initializeShop() {
     if (d.detail) openDetail(+d.detail);
     if ("reset" in d) resetFilters();
     if (d.copy) {
-      const url = new URL("/catalogo.html", location.origin);
+      const url = new URL("./catalogo.html", import.meta.url);
       url.searchParams.set("produto", d.copy);
       navigator.clipboard
         ?.writeText(url.href)
@@ -342,7 +342,7 @@ async function initializeShop() {
   $("#cart").onclick = $("#mobile-cart").onclick = openCart;
   $("#favorites").onclick = $("#mobile-favorites").onclick = () => {
     if (!$("#catalogo")) {
-      location.href = "/catalogo.html?favoritos=1";
+      location.href = "./catalogo.html?favoritos=1";
       return;
     }
     onlyFavorites = !onlyFavorites;
@@ -414,7 +414,9 @@ async function initializeShop() {
     renderRecent();
   });
   if ("serviceWorker" in navigator)
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    navigator.serviceWorker
+      .register(new URL("./sw.js", import.meta.url))
+      .catch(() => {});
   save();
   render();
 
@@ -468,7 +470,7 @@ async function initializeShop() {
         render();
         $("#catalogo").scrollIntoView({ behavior: "smooth" });
       } else
-        location.href = "/catalogo.html?busca=" + encodeURIComponent(value);
+        location.href = "./catalogo.html?busca=" + encodeURIComponent(value);
     }),
   );
   if (query.get("busca") && $("#search")) {

@@ -12,6 +12,8 @@ npm run dev
 
 Acesse http://localhost:3000.
 
+Também é possível usar o Live Server do VS Code: clique com o botão direito em index.html e escolha **Open with Live Server**. Os caminhos são relativos à pasta do projeto, incluindo quando ela está dentro de outra pasta do workspace. Abra por HTTP; abrir o HTML diretamente como arquivo não permite carregar os módulos e o catálogo.
+
 ## Funcionalidades
 
 - Catálogo com busca, categorias, filtro de preço e ordenação.
