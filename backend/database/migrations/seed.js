@@ -55,7 +55,6 @@ async function seed() {
     console.log(`  ✓ [${p.id}] ${p.name}`);
   }
 
-  await query(`SELECT setval('products_id_seq', (SELECT MAX(id) FROM products))`);
   console.log("[Seed] Importação concluída.");
 }
 

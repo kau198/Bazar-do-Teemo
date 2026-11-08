@@ -9,7 +9,7 @@
       "tag": "O favorito do bazar",
       "description": "O explorador de Bandle City em uma versão para acompanhar você fora do Rift.",
       "currency": "BRL",
-      "imageUrl": "/public/products/teemo-plush.png",
+      "imageUrl": "/assets/images/products/teemo-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/teemo-plush/",
       "sizes": []
     },
@@ -22,7 +22,7 @@
       "tag": "Para colecionar",
       "description": "O pequeno explorador merece um lugar especial na sua estante.",
       "currency": "BRL",
-      "imageUrl": "/public/products/teemo-figure.png",
+      "imageUrl": "/assets/images/products/teemo-figure.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/teemo-figure/",
       "sizes": []
     },
@@ -35,7 +35,7 @@
       "tag": "",
       "description": "Um pouco do caos de Zaun no seu dia a dia. Camiseta unissex da coleção Jinx.",
       "currency": "BRL",
-      "imageUrl": "/public/products/jinx-anime-inspired-tee-unisex.png",
+      "imageUrl": "/assets/images/products/jinx-anime-inspired-tee-unisex.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/jinx-anime-inspired-tee-unisex/",
       "sizes": ["P", "M", "G", "GG"]
     },
@@ -48,7 +48,7 @@
       "tag": "",
       "description": "O companheiro da Annie, pronto para fazer parte da sua coleção.",
       "currency": "BRL",
-      "imageUrl": "/public/products/tibbers-plush.png",
+      "imageUrl": "/assets/images/products/tibbers-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/tibbers-plush/",
       "sizes": []
     },
@@ -61,7 +61,7 @@
       "tag": "",
       "description": "A versão Panda do explorador mais carismático de Runeterra.",
       "currency": "BRL",
-      "imageUrl": "/public/products/panda-teemo.png",
+      "imageUrl": "/assets/images/products/panda-teemo.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/panda-teemo/",
       "sizes": []
     },
@@ -74,7 +74,7 @@
       "tag": "",
       "description": "Um cenário encantado para dar outra atmosfera ao seu setup.",
       "currency": "BRL",
-      "imageUrl": "/public/products/winter-wonder-soraka-mousepad.png",
+      "imageUrl": "/assets/images/products/winter-wonder-soraka-mousepad.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/winter-wonder-soraka-mousepad/",
       "sizes": []
     },
@@ -87,7 +87,7 @@
       "tag": "Universo Arcane",
       "description": "Jinx e Ekko juntos em uma peça da coleção Arcane.",
       "currency": "BRL",
-      "imageUrl": "/public/products/arcane-jinx-ekko-tee.png",
+      "imageUrl": "/assets/images/products/arcane-jinx-ekko-tee.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/arcane-jinx-ekko-tee/",
       "sizes": ["P", "M", "G", "GG"]
     },
@@ -100,7 +100,7 @@
       "tag": "",
       "description": "Uma versão colecionável do Teemo, apresentada em sua caixa temática.",
       "currency": "BRL",
-      "imageUrl": "/public/products/teemo-collectible-plush.png",
+      "imageUrl": "/assets/images/products/teemo-collectible-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/teemo-collectible-plush/",
       "sizes": []
     },
@@ -113,7 +113,7 @@
       "tag": "LoL Esports",
       "description": "O Poro entra no clima do Mundial para acompanhar a sua coleção.",
       "currency": "BRL",
-      "imageUrl": "/public/products/worlds-2026-poro-plush.png",
+      "imageUrl": "/assets/images/products/worlds-2026-poro-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/worlds-2026-poro-plush/",
       "sizes": []
     },
@@ -126,7 +126,7 @@
       "tag": "Para o seu setup",
       "description": "A estética de Velho Oeste do Thresh em um mousepad temático de League of Legends.",
       "currency": "BRL",
-      "imageUrl": "/public/products/high-noon-thresh-mousepad.png",
+      "imageUrl": "/assets/images/products/high-noon-thresh-mousepad.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/high-noon-thresh-mousepad/",
       "sizes": []
     },
@@ -139,7 +139,7 @@
       "tag": "K/DA",
       "description": "Ahri na versão K/DA em uma peça de coleção da Apex.",
       "currency": "BRL",
-      "imageUrl": "/public/products/apex-kda-ahri-figure.png",
+      "imageUrl": "/assets/images/products/apex-kda-ahri-figure.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/apex-kda-ahri-figure/",
       "sizes": []
     },
@@ -152,7 +152,7 @@
       "tag": "Universo Arcane",
       "description": "Camiseta da colaboração Billionaire Boys Club com Arcane, dedicada à Jinx.",
       "currency": "BRL",
-      "imageUrl": "/public/products/bbc-arcane-jinx-tee.png",
+      "imageUrl": "/assets/images/products/bbc-arcane-jinx-tee.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/bbc-arcane-jinx-tee/",
       "sizes": ["P", "M", "G", "GG"]
     },
@@ -165,7 +165,7 @@
       "tag": "LoL Esports",
       "description": "Tibbers veste as cores da LCS nesta versão temática de esports.",
       "currency": "BRL",
-      "imageUrl": "/public/products/lcs-2024-tibbers-plush.png",
+      "imageUrl": "/assets/images/products/lcs-2024-tibbers-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/lcs-2024-tibbers-plush/",
       "sizes": []
     },
@@ -178,7 +178,7 @@
       "description": "A Lança da Vingança em uma arte para a sua parede.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/kalista-posters.png",
+      "imageUrl": "/assets/images/products/kalista-posters.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/kalista-posters/",
       "sizes": []
     },
@@ -191,7 +191,7 @@
       "description": "O Virtuoso leva sua presença para a decoração do seu espaço.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/jhin-art-print.png",
+      "imageUrl": "/assets/images/products/jhin-art-print.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/jhin-art-print/",
       "sizes": []
     },
@@ -204,7 +204,7 @@
       "description": "O ceifador das sombras para completar o seu cantinho de Runeterra.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/kayn-posters.png",
+      "imageUrl": "/assets/images/products/kayn-posters.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/kayn-posters/",
       "sizes": []
     },
@@ -217,7 +217,7 @@
       "description": "Ahri e a atmosfera de Florescer Espiritual no seu setup.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/spirit-blossom-ahri-xl-mousepad.png",
+      "imageUrl": "/assets/images/products/spirit-blossom-ahri-xl-mousepad.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/spirit-blossom-ahri-xl-mousepad/",
       "sizes": []
     },
@@ -230,7 +230,7 @@
       "description": "Um companheiro da selva que pode sair do Rift e ocupar a sua estante.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/gromp-plush.png",
+      "imageUrl": "/assets/images/products/gromp-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/gromp-plush/",
       "sizes": []
     },
@@ -243,7 +243,7 @@
       "description": "O objetivo mais disputado do Rift, agora na sua coleção.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/baron-nashor-plush.png",
+      "imageUrl": "/assets/images/products/baron-nashor-plush.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/baron-nashor-plush/",
       "sizes": []
     },
@@ -256,7 +256,7 @@
       "description": "Uma bolsa transversal da coleção K/DA para levar o seu universo com você.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/kda-firestarter-crossbody-bag.png",
+      "imageUrl": "/assets/images/products/kda-firestarter-crossbody-bag.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/kda-firestarter-crossbody-bag/",
       "sizes": []
     },
@@ -269,7 +269,7 @@
       "description": "Um kit de chaveiros da linha Academia de Batalha para personalizar o seu dia a dia.",
       "tag": "Novo no bazar",
       "currency": "BRL",
-      "imageUrl": "/public/products/battle-academia-keychains-6-pack.png",
+      "imageUrl": "/assets/images/products/battle-academia-keychains-6-pack.png",
       "sourceUrl": "https://merch.riotgames.com/en-us/product/battle-academia-keychains-6-pack/",
       "sizes": []
     }

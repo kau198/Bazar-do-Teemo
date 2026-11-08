@@ -74,10 +74,23 @@ function normalizeProduct(row) {
     category: row.category,
     price: parseFloat(row.price),
     currency: row.currency,
-    imageUrl: row.image_url,
+    imageUrl: fixImagePath(row.image_url),
     sourceUrl: row.source_url,
     sizes: row.sizes ?? [],
     tag: row.tag ?? "",
     art: row.art ?? "",
   };
+}
+
+/**
+ * Rewrites legacy /public/products/ paths to the current /assets/images/products/ location.
+ * Safe to call on already-correct paths (no-op in that case).
+ * @param {string} url
+ */
+function fixImagePath(url) {
+  if (!url) return url;
+  if (url.startsWith("/public/products/")) {
+    return url.replace("/public/products/", "/assets/images/products/");
+  }
+  return url;
 }

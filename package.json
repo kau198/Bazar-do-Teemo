@@ -7,6 +7,7 @@
     "start": "node backend/index.js",
     "migrate": "node backend/database/migrations/migrate.js",
     "seed": "node backend/database/migrations/seed.js",
+    "patch:images": "node backend/database/patches/patch-image-paths.js",
     "check": "node --check frontend/js/main.js && node --check frontend/js/auth/auth.js && node --check frontend/js/auth/auth-ui.js && node --check frontend/js/services/catalog.js && node --check backend/index.js && node --check backend/src/config/database.js && node --check backend/src/services/productService.js && node --check backend/src/services/authService.js && node --check backend/src/controllers/productController.js && node --check backend/src/controllers/authController.js && node --check backend/src/routes/products.js && node --check backend/src/routes/auth.js && node --check backend/src/middlewares/errorHandler.js && node --check backend/src/middlewares/requireAuth.js && node --check backend/src/utils/errors.js && node --check backend/database/migrations/001_initial.js && node --check backend/database/migrations/migrate.js && node --check backend/database/migrations/seed.js"
   },
   "type": "module",
