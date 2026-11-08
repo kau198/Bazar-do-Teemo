@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#183c31" />
+    <meta
+      name="description"
+      content="Colecionáveis, pelúcias e vestuário de League of Legends. Baazar do Teemo, projeto demonstrativo feito por fãs."
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link
+      rel="icon"
+      href="./public/logo-teemo-transparent.png"
+      type="image/png"
+    />
+    <link rel="apple-touch-icon" href="./public/logo-teemo-transparent.png" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Baazar do Teemo — Seu universo fora da tela</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+    <div class="announcement">
+      <span>UM PEDACINHO DE RUNETERRA, NO SEU MUNDO.</span
+      ><span>Projeto de demonstração • feito por fãs</span>
+    </div>
+    <header>
+      <div class="header-main">
+        <a class="brand" href="./" aria-label="Baazar do Teemo, início"
+          ><img
+            src="./public/logo-teemo-transparent.png"
+            alt=""
+            width="64"
+            height="60"
+          /><span>baazar<span class="brand-sub">DO TEEMO</span></span></a
+        >
+        <form class="header-search" data-search-form>
+          <input
+            aria-label="Buscar na loja"
+            placeholder="Qual vai ser o seu próximo loot?"
+          /><button aria-label="Buscar">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+          </button>
+        </form>
+        <div class="actions">
+          <button id="auth-btn" class="auth-btn" aria-label="Entrar na conta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="auth-btn-label" id="auth-btn-label">Entrar</span>
+          </button
+          ><button id="theme" aria-label="Alternar tema">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"
+              />
+            </svg></button
+          ><button id="favorites" aria-label="Ver favoritos">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"
+              />
+            </svg></button
+          ><button id="cart" aria-label="Abrir sacola">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 7h14l1 14H4L5 7Z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg
+            ><span class="bag-label">Minha sacola</span
+            ><b id="count">0</b></button
+          ><button
+            id="menu-toggle"
+            class="menu-toggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="main-nav"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="main-nav" aria-label="Principal">
+        <a href="./catalogo.html">Todos os produtos</a
+        ><a href="./catalogo.html?categoria=Colecionáveis">Colecionáveis</a
+        ><a href="./catalogo.html?categoria=Pelúcias">Pelúcias</a
+        ><a href="./catalogo.html?categoria=Vestuário">Vestuário</a
+        ><a href="./catalogo.html?categoria=Acessórios">Acessórios</a
+        ><a href="./catalogo.html?categoria=Mousepads">Mousepads</a
+        ><a href="./catalogo.html?categoria=Decora%C3%A7%C3%A3o">Decoração</a
+        ><a class="nav-about" href="./contato.html">Conheça o bazar ↗</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="little-dot"></span> BEM-VINDO AO BAAZAR DO TEEMO
+          </p>
+          <h1>Seu universo.<br />Fora da <em>tela.</em></h1>
+          <p>
+            Do seu campeão favorito ao seu próximo colecionável.<br />Encontre
+            um pedaço de Runeterra para chamar de seu.
+          </p>
+          <a class="primary" href="#catalogo"
+            >Explorar o bazar
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M4 12h16m-6-6 6 6-6 6" /></svg
+          ></a>
+          <div class="hero-caption">
+            <span>LOOT SELECIONADO</span><span>POR QUEM TAMBÉM JOGA.</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <span class="hero-orbit orbit-one"></span
+          ><span class="hero-orbit orbit-two"></span
+          ><span class="hero-word">TEEMO</span
+          ><img
+            class="hero-product"
+            src="./public/products/teemo-plush.png"
+            alt="Pelúcia oficial do Teemo com chapéu verde e óculos de explorador"
+            fetchpriority="high"
+          />
+          <div class="hero-stamp">
+            100%<br /><span>ESPÍRITO<br />EXPLORADOR</span>
+          </div>
+          <a class="hero-product-label" href="./catalogo.html?produto=1"
+            ><div>
+              <small>DIRETO DE BANDLE CITY</small><strong>Pelúcia Teemo</strong>
+            </div>
+            <span>↗</span></a
+          >
+        </div>
+        <div class="hero-index">
+          <b>01</b><span>—</span>O explorador chegou.
+        </div>
+      </section>
+      <div class="benefits">
+        <div>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="m12 3 9 5v9l-9 5-9-5V8l9-5Zm0 9v10M3 8l9 4 9-4M7 5l10 5"
+            /></svg
+          ><span
+            ><strong>Um universo para colecionar</strong
+            ><small>Peças que contam a sua história</small></span
+          >
+        </div>
+        <div>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"
+            /></svg
+          ><span
+            ><strong>Escolhido por quem joga</strong
+            ><small>Uma seleção com personalidade</small></span
+          >
+        </div>
+        <div>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 7h14l1 14H4L5 7Z" />
+            <path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg
+          ><span
+            ><strong>Do Rift para o seu dia a dia</strong
+            ><small>Seu campeão vai com você</small></span
+          >
+        </div>
+      </div>
+      <section id="catalogo" class="catalog">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CURADORIA DO EXPLORADOR</p>
+            <h2>Pequenos itens. Grandes paixões.</h2>
+          </div>
+          <a href="./catalogo.html">Ver coleção completa ↗</a>
+        </div>
+        <div class="catalog-toolbar">
+          <div class="filters" aria-label="Categorias">
+            <button class="selected" data-category="Todos">
+              Todos os itens</button
+            ><button class="" data-category="Colecionáveis">
+              Colecionáveis</button
+            ><button class="" data-category="Pelúcias">Pelúcias</button
+            ><button class="" data-category="Vestuário">Vestuário</button
+            ><button class="" data-category="Acessórios">Acessórios</button>
+          </div>
+          <label class="search"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" /></svg
+            ><input
+              id="search"
+              placeholder="Buscar um item..."
+              aria-label="Filtrar produtos"
+          /></label>
+        </div>
+        <div class="advanced-filters">
+          <label
+            >Faixa de preço
+            <select id="price-filter">
+              <option value="all">Todos os preços</option>
+              <option value="under100">Até R$ 100</option>
+              <option value="100to200">De R$ 100,01 a R$ 200</option>
+              <option value="over200">Acima de R$ 200</option>
+            </select></label
+          ><button id="filter-favorites" aria-pressed="false">
+            ♡ Meus favoritos</button
+          ><button id="clear-filters" data-reset hidden>
+            Limpar filtros ×
+          </button>
+        </div>
+        <div class="results">
+          <span id="result-count"></span
+          ><label
+            >Ordenar por
+            <select id="sort" aria-label="Ordenar produtos">
+              <option value="featured">Destaques</option>
+              <option value="low">Menor preço</option>
+              <option value="high">Maior preço</option>
+              <option value="new">Novidades</option>
+            </select></label
+          >
+        </div>
+        <div id="products" class="products">
+          <p class="empty" role="status">Carregando produtos...</p>
+        </div>
+        <div class="load-more-wrap">
+          <button id="load-more" class="secondary" hidden>
+            Mostrar mais produtos
+          </button>
+        </div>
+        <p class="demo-note">
+          Vitrine demonstrativa com produtos reais de referência. Valores
+          fictícios.
+        </p>
+      </section>
+      <section class="collections">
+        <a class="collection green" href="./catalogo.html?categoria=Pelúcias"
+          ><div>
+            <p class="eyebrow">COMPANHEIROS DE TODA PARTIDA</p>
+            <h2>É impossível<br />ter só um.</h2>
+            <span>Encontre sua pelúcia ↗</span>
+          </div>
+          <img
+            src="./public/products/panda-teemo.png"
+            alt="Pelúcia Panda Teemo"
+            loading="lazy" /></a
+        ><a class="collection peach" href="./catalogo.html?categoria=Vestuário"
+          ><div>
+            <p class="eyebrow">EQUIPE O SEU ESTILO</p>
+            <h2>Seu main.<br />Seu jeito.</h2>
+            <span>Explore o vestuário ↗</span>
+          </div>
+          <img
+            src="./public/products/jinx-anime-inspired-tee-unisex.png"
+            alt="Camiseta Jinx Anime"
+            loading="lazy"
+        /></a>
+      </section>
+      <section class="brand-story">
+        <p class="eyebrow">A NOSSA BASE É A COMUNIDADE</p>
+        <h2>Tem coisa que não fica só no jogo.</h2>
+        <p>
+          Aquele campeão que virou main. A partida que virou história.<br />O
+          bazar existe para trazer um pouco disso para perto de você.
+        </p>
+        <a href="./contato.html">Conheça a nossa história ↗</a>
+      </section>
+      <section id="recent-section" class="recent-section" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CONTINUE DE ONDE PAROU</p>
+            <h2>Você viu por aqui</h2>
+          </div>
+          <button id="clear-recent" class="text-button">
+            Limpar histórico
+          </button>
+        </div>
+        <div id="recent-products" class="products"></div>
+      </section>
+    </main>
+    <section class="app-banner">
+      <div>
+        <span class="eyebrow">SEU INVENTÁRIO SEMPRE POR PERTO</span>
+        <h2>Leve o bazar com você.</h2>
+        <p>Os seus favoritos, na tela inicial do celular.</p>
+      </div>
+      <button class="primary" id="install">
+        Instalar aplicativo
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 12h16m-6-6 6 6-6 6" />
+        </svg>
+      </button>
+    </section>
+    <footer>
+      <div class="footer-top">
+        <div>
+          <a class="brand" href="./" aria-label="Baazar do Teemo, início"
+            ><img
+              src="./public/logo-teemo-transparent.png"
+              alt=""
+              width="64"
+              height="60"
+            /><span>baazar<span class="brand-sub">DO TEEMO</span></span></a
+          >
+          <p>Para quem carrega o Rift<br />mesmo depois do GG.</p>
+        </div>
+        <div>
+          <h3>Explore o bazar</h3>
+          <a href="./catalogo.html">Todos os produtos</a
+          ><a href="./catalogo.html?categoria=Pelúcias"
+            >Pelúcias e colecionáveis</a
+          ><a href="./catalogo.html?categoria=Vestuário">Vestuário</a>
+        </div>
+        <div>
+          <h3>Vamos conversar</h3>
+          <a href="./contato.html">Contato e sobre a loja</a
+          ><button onclick="document.querySelector('#cart').click()">
+            Minha sacola</button
+          ><a href="./catalogo.html?favoritos=1">Meus favoritos</a>
+        </div>
+        <div class="footer-note">
+          <h3>Feito por fãs. Para fãs.</h3>
+          <p>
+            Projeto acadêmico independente, sem afiliação à Riot Games. Produtos
+            e imagens de referência da Riot Games Merch. Preços fictícios; não
+            realizamos vendas.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Baazar do Teemo</span
+        ><span>LEAGUE OF LEGENDS · FAN PROJECT</span
+        ><span>Brasil · Português</span>
+      </div>
+    </footer>
+    <dialog id="drawer">
+      <div class="dialog-head">
+        <h2>Sua sacola</h2>
+        <button data-close aria-label="Fechar sacola">×</button>
+      </div>
+      <div id="cart-items"></div>
+      <div id="cart-footer"></div>
+    </dialog>
+    <dialog id="detail">
+      <button data-close class="detail-close" aria-label="Fechar detalhes">
+        ×
+      </button>
+      <div id="detail-content"></div>
+    </dialog>
+    <div id="toast" role="status"></div>
+
+    <!-- Auth Modal -->
+    <dialog id="auth-modal" aria-label="Autenticação">
+      <div class="auth-modal-inner">
+        <button data-close class="auth-modal-close" aria-label="Fechar">×</button>
+        <div class="auth-tabs" role="tablist">
+          <button role="tab" id="tab-login" aria-selected="true" aria-controls="panel-login" class="auth-tab selected">Entrar</button>
+          <button role="tab" id="tab-register" aria-selected="false" aria-controls="panel-register" class="auth-tab">Cadastrar</button>
+        </div>
+
+        <!-- Login panel -->
+        <div id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+          <form id="login-form" novalidate>
+            <label class="auth-label">
+              E-mail
+              <input type="email" id="login-email" name="email" autocomplete="email" required placeholder="seu@email.com" />
+            </label>
+            <label class="auth-label">
+              Senha
+              <div class="auth-password-wrap">
+                <input type="password" id="login-password" name="password" autocomplete="current-password" required placeholder="••••••••" />
+                <button type="button" class="auth-toggle-pw" aria-label="Mostrar senha" data-target="login-password">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </label>
+            <p id="login-error" class="auth-error" role="alert" hidden></p>
+            <button type="submit" class="primary auth-submit" id="login-submit">
+              Entrar <span class="auth-spinner" hidden>…</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Register panel -->
+        <div id="panel-register" role="tabpanel" aria-labelledby="tab-register" hidden>
+          <form id="register-form" novalidate>
+            <label class="auth-label">
+              Nome completo
+              <input type="text" id="reg-name" name="name" autocomplete="name" required placeholder="Seu nome" />
+            </label>
+            <label class="auth-label">
+              E-mail
+              <input type="email" id="reg-email" name="email" autocomplete="email" required placeholder="seu@email.com" />
+            </label>
+            <label class="auth-label">
+              Senha <small>(mínimo 8 caracteres)</small>
+              <div class="auth-password-wrap">
+                <input type="password" id="reg-password" name="password" autocomplete="new-password" required placeholder="••••••••" />
+                <button type="button" class="auth-toggle-pw" aria-label="Mostrar senha" data-target="reg-password">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </label>
+            <label class="auth-label">
+              Confirmar senha
+              <input type="password" id="reg-confirm" name="confirmPassword" autocomplete="new-password" required placeholder="••••••••" />
+            </label>
+            <p id="register-error" class="auth-error" role="alert" hidden></p>
+            <button type="submit" class="primary auth-submit" id="register-submit">
+              Criar conta <span class="auth-spinner" hidden>…</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Logged-in panel -->
+        <div id="panel-loggedin" hidden>
+          <p class="auth-welcome">Olá, <strong id="auth-user-name"></strong>!</p>
+          <p class="auth-welcome-sub">Você está conectado ao Baazar do Teemo.</p>
+          <button class="primary auth-submit" id="logout-btn">Sair da conta</button>
+        </div>
+      </div>
+    </dialog>
+    <nav class="mobile-nav" aria-label="Navegação móvel">
+      <a href="./">⌂<span>Início</span></a
+      ><a href="./catalogo.html"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 5 5" /></svg
+        ><span>Explorar</span></a
+      ><button id="mobile-favorites">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"
+          /></svg
+        ><span>Favoritos</span></button
+      ><button id="mobile-cart">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 7h14l1 14H4L5 7Z" />
+          <path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg
+        ><span>Sacola</span>
+      </button>
+    </nav>
+    <script src="./app.js" type="module"></script>
+    <script src="./services/auth-ui.js" type="module"></script>
+  </body>
+</html>

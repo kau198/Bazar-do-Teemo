@@ -1,0 +1,25 @@
+{
+  "name": "bazar-do-teemo",
+  "version": "0.3.0",
+  "private": true,
+  "scripts": {
+    "dev": "node backend/index.js",
+    "start": "node backend/index.js",
+    "migrate": "node backend/database/migrations/migrate.js",
+    "seed": "node backend/database/migrations/seed.js",
+    "check": "node --check frontend/js/main.js && node --check frontend/js/auth/auth.js && node --check frontend/js/auth/auth-ui.js && node --check frontend/js/services/catalog.js && node --check backend/index.js && node --check backend/src/config/database.js && node --check backend/src/services/productService.js && node --check backend/src/services/authService.js && node --check backend/src/controllers/productController.js && node --check backend/src/controllers/authController.js && node --check backend/src/routes/products.js && node --check backend/src/routes/auth.js && node --check backend/src/middlewares/errorHandler.js && node --check backend/src/middlewares/requireAuth.js && node --check backend/src/utils/errors.js && node --check backend/database/migrations/001_initial.js && node --check backend/database/migrations/migrate.js && node --check backend/database/migrations/seed.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.3",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.3.0",
+    "pg": "^8.23.1"
+  }
+}
