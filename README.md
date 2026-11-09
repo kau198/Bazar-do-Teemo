@@ -206,6 +206,7 @@ Na home, o botão **Instalar app Android** baixa o APK diretamente. As instruç�
 
 - [Código e instruções de compilação](mobile/README.md)
 - [Resultados dos testes da versão 1.0.2](docs/testes-android.md)
+- [Checkout e testes da versão 1.1.0](docs/checkout.md)
 
 O APK é uma versão de avaliação. O checkout do site e do Android registra pedidos simulados, sem cobrança ou envio real.
 
