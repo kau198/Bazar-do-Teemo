@@ -9,7 +9,18 @@ const status = (message, error = false) => {
 const cartKey = "baazar-cart-v2";
 function readCart() {
   try {
-    return JSON.parse(localStorage.getItem(cartKey) || "{}");
+    const value = JSON.parse(localStorage.getItem(cartKey) || "{}");
+    if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+    return Object.fromEntries(
+      Object.entries(value).filter(
+        ([key, quantity]) =>
+          /^[1-9]\d*(?::[^:]{1,40})?$/.test(key) &&
+          Number.isSafeInteger(Number(key.split(":")[0])) &&
+          Number.isInteger(quantity) &&
+          quantity >= 1 &&
+          quantity <= 99,
+      ),
+    );
   } catch {
     return {};
   }

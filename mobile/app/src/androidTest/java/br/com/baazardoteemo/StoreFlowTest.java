@@ -142,7 +142,7 @@ public class StoreFlowTest {
         String[][] fields={{"Telefone com DDD","11999999999"},{"CEP","01001000"},{"Rua ou avenida","Rua de Teste"},{"Número ou S/N","10"},{"Bairro","Centro"},{"Cidade","Sao Paulo"}};
         for(String[] field:fields)onView(withHint(field[0])).perform(scrollTo(),replaceText(field[1]),closeSoftKeyboard());
         onView(withContentDescription("Estado de entrega")).perform(scrollTo(),click());
-        onView(withText("SP")).inRoot(isPlatformPopup()).perform(click());
+        onData(is("SP")).inRoot(isPlatformPopup()).perform(click());
         onView(withText("Revisar pedido")).perform(scrollTo(),click());
         awaitText("Confirmar simulação");
         onView(withText("Confirmar simulação")).perform(click());
