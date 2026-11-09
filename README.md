@@ -1,221 +1,115 @@
-# Baazar do Teemo
+<p align="center">
+  <img src="./frontend/assets/icons/logo-teemo-transparent.png" alt="Logo do Bazar do Teemo" width="210">
+</p>
 
-Loja virtual de produtos do universo de League of Legends, com separação clara entre front-end e back-end, PostgreSQL 18 (Neon), API REST e autenticação completa.
+<h1 align="center">Bazar do Teemo</h1>
 
----
+<p align="center">
+  Uma loja virtual inspirada em League of Legends, com site responsivo e aplicativo Android nativo.
+</p>
 
-## Visão geral da arquitetura
+<p align="center">
+  <a href="https://bazar-do-teemo.onrender.com">Visitar o site</a> ·
+  <a href="./frontend/downloads/baazar-do-teemo.apk">APK de avaliação</a> ·
+  <a href="./mobile/README.md">Documentação Android</a>
+</p>
 
-```
-bazar-do-teemo/
-│
-├── frontend/                   # Tudo que roda no navegador
-│   ├── assets/
-│   │   ├── icons/              # Logo e ícones (logo-teemo-transparent.png, icon.svg)
-│   │   └── images/products/    # Imagens dos 21 produtos
-│   ├── css/
-│   │   └── style.css           # Estilos globais + componentes + responsividade
-│   ├── js/
-│   │   ├── main.js             # Lógica da loja (catálogo, sacola, favoritos)
-│   │   ├── services/
-│   │   │   └── catalog.js      # Chamadas à API de produtos
-│   │   └── auth/
-│   │       ├── auth.js         # Chamadas à API de autenticação
-│   │       └── auth-ui.js      # Controlador do modal de login/cadastro
-│   ├── pages/
-│   │   ├── index.html          # Página inicial
-│   │   ├── catalogo.html       # Catálogo completo
-│   │   └── contato.html        # Página de contato
-│   ├── manifest.webmanifest    # PWA manifest
-│   └── sw.js                   # Service Worker (cache offline)
-│
-├── backend/                    # Servidor Node.js/Express
-│   ├── src/
-│   │   ├── config/
-│   │   │   └── database.js     # Pool PostgreSQL (Neon)
-│   │   ├── controllers/
-│   │   │   ├── authController.js
-│   │   │   └── productController.js
-│   │   ├── middlewares/
-│   │   │   ├── errorHandler.js
-│   │   │   └── requireAuth.js
-│   │   ├── routes/
-│   │   │   ├── auth.js         # /api/v1/auth/*
-│   │   │   └── products.js     # /api/v1/products, /api/v1/categories
-│   │   ├── services/
-│   │   │   ├── authService.js  # Registro, login, bcrypt
-│   │   │   └── productService.js
-│   │   └── utils/
-│   │       └── errors.js       # Classes AppError, NotFoundError, etc.
-│   ├── database/
-│   │   └── migrations/
-│   │       ├── 001_initial.js  # DDL: users, products, sessions
-│   │       ├── migrate.js      # Runner de migrations
-│   │       └── seed.js         # Importa produtos do JSON
-│   └── index.js                # Entrada do servidor Express
-│
-├── data/
-│   └── products.json           # Fonte dos 21 produtos (usado apenas pelo seed)
-│
-├── .env.example                # Template de variáveis de ambiente
-├── .gitignore
-├── package.json
-└── README.md
-```
+## Propósito
 
----
+O Bazar do Teemo é um projeto acadêmico que simula uma loja de produtos inspirados em League of Legends. A ideia é praticar o desenvolvimento de uma aplicação completa, do catálogo e da autenticação até o registro de um pedido, com dois clientes usando a mesma API.
 
-## Tecnologias
+## O que dá para fazer
 
-| Camada | Tecnologia |
-|---|---|
-| Front-end | HTML5, CSS3, JavaScript (ES Modules) |
-| Back-end | Node.js 20+, Express 5 |
-| Banco de dados | PostgreSQL 18 via Neon |
-| Autenticação | express-session + connect-pg-simple |
-| Senhas | bcryptjs (12 rounds) |
-| Segurança | helmet, express-rate-limit, cookies HttpOnly |
-| Validação | express-validator |
+- Navegar pelo catálogo, buscar produtos e filtrar por categoria.
+- Consultar detalhes, escolher tamanho e quantidade, salvar favoritos e montar a sacola.
+- Criar uma conta, entrar e finalizar um **pedido de demonstração** com endereço fictício.
+- No Android, consultar o catálogo salvo mesmo sem conexão. As operações de conta e a confirmação do pedido exigem acesso à API.
 
----
+O checkout calcula os preços no servidor, exibe o frete antes da confirmação e evita pedidos duplicados quando a mesma tentativa é reenviada. O frete simulado custa R$ 19,90 e é gratuito a partir de R$ 299,00. Os preços são fictícios e o fluxo termina no registro do pedido, sem cobrança ou entrega.
 
-## Instalação
+## Como o site e o app se conectam
 
-```sh
-# Requer Node.js 20+
-npm install
-```
+O Express serve as páginas do site e disponibiliza a API REST em `/api/v1`. O site e o aplicativo enviam requisições a essa API para consultar o catálogo, autenticar usuários e registrar pedidos. O PostgreSQL armazena usuários, produtos, sessões e pedidos.
 
----
+A interface Android foi implementada em **Java com telas nativas**. O que o app reaproveita do site é a API. O **Gradle Wrapper** fixa a versão do Gradle em 8.11.1, e o Gradle executa os testes, a análise com lint e a geração do APK.
 
-## Configuração das variáveis de ambiente
+| Parte | Tecnologias |
+| --- | --- |
+| Site | HTML, CSS e JavaScript, com manifesto PWA e service worker |
+| API | Node.js 20+, Express 5 |
+| Banco de dados | PostgreSQL no Neon |
+| Autenticação | Sessões no PostgreSQL, cookies de sessão e senhas com hash via bcryptjs |
+| Aplicativo | Java 17, Android SDK 35 e Gradle 8.11.1 |
+| Testes | Node.js Test Runner, pg-mem, Playwright e testes Android |
 
-```sh
+## Rodar o site localmente
+
+Pré-requisitos: Node.js 20+, npm e um banco PostgreSQL. O projeto usa o [Neon](https://console.neon.tech) como serviço de banco de dados.
+
+```bash
+git clone https://github.com/kau198/Bazar-do-Teemo.git
+cd Bazar-do-Teemo
+npm ci
 cp .env.example .env
 ```
 
-Edite `.env`:
+Preencha `DATABASE_URL` com a string de conexão do banco e `SESSION_SECRET` com um valor aleatório para assinar as sessões. Você pode gerar esse valor com `node -e "console.log(require('node:crypto').randomBytes(64).toString('hex'))"`. Para execução local, mantenha `NODE_ENV=development` e `PORT=3000`.
 
-```env
-DATABASE_URL=postgres://usuario:senha@ep-xxxx.neon.tech/bazardoteemo?sslmode=require
-SESSION_SECRET=um_segredo_forte_e_aleatorio
-NODE_ENV=development
-PORT=3000
+```bash
+npm run migrate  # Cria as tabelas
+npm run seed     # Importa os produtos de demonstração
+npm run dev      # Inicia o servidor
 ```
 
-Como obter a `DATABASE_URL`:
-1. Acesse [console.neon.tech](https://console.neon.tech)
-2. Crie um projeto e um banco de dados
-3. Em **Connection Details → Connection string**, copie o valor
+Abra [http://localhost:3000](http://localhost:3000).
 
-Como gerar um `SESSION_SECRET` seguro:
-```sh
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+## Instalar ou compilar o app Android
+
+O APK de avaliação é compatível com **Android 8.0 (API 26) ou superior**. O app usa o endereço do site no Render por padrão. Para testar com o backend local, abra **Servidor** no app e informe `http://IP-DO-COMPUTADOR:3000`, com o computador e o celular na mesma rede. Para finalizar pedidos pelo app, o servidor precisa oferecer as rotas de checkout.
+
+Para compilar, instale o JDK 17 e o Android SDK 35, abra a pasta `mobile/` no Android Studio e rode:
+
+```bash
+cd mobile
+./gradlew testDebugUnitTest lintDebug assembleDebug
 ```
 
----
+No Windows, use `gradlew.bat` no lugar de `./gradlew`. O APK de desenvolvimento é gerado em `mobile/app/build/outputs/apk/debug/app-debug.apk`. O [workflow Android APK](https://github.com/kau198/Bazar-do-Teemo/actions) também gera uma versão de avaliação.
 
-## Execução das migrations
+## API REST
 
-```sh
-npm run migrate
+Prefixo das rotas: `/api/v1`.
+
+| Método | Rota | Função |
+| --- | --- | --- |
+| GET | `/products` | Lista produtos |
+| GET | `/products/search?q=termo` | Busca no catálogo |
+| GET | `/products/:id` | Consulta um produto |
+| GET | `/categories` | Lista categorias |
+| GET | `/auth/me` | Consulta a sessão atual |
+| POST | `/auth/register`, `/auth/login`, `/auth/logout` | Cadastro, login e logout |
+| POST | `/orders/quote` | Calcula o resumo do pedido |
+| POST | `/orders` | Confirma o pedido simulado |
+| GET | `/orders/:id` | Recupera o recibo do usuário autenticado |
+
+A confirmação recebe o cabeçalho `Idempotency-Key` e o total revisado em `expectedTotalCents`. Consulte a [documentação do checkout](./docs/checkout.md) para detalhes e resultados dos testes.
+
+## Organização e testes
+
+| Pasta | Conteúdo |
+| --- | --- |
+| [`frontend/`](./frontend/) | Páginas, estilos, JavaScript e recursos visuais |
+| [`backend/`](./backend/) | Servidor, rotas, serviços e migrações do banco |
+| [`mobile/`](./mobile/) | Código Android e configuração do Gradle |
+| [`data/`](./data/) | Produtos de demonstração usados pelo seed |
+| [`docs/`](./docs/) | Referências e registros de testes |
+
+```bash
+npm run check           # Verificação de sintaxe JavaScript
+npm test                # Testes de pedidos em banco isolado
+npm run test:checkout   # Fluxo do checkout no navegador com Playwright
 ```
-
-Cria as tabelas `users`, `products` e `sessions`. Idempotente.
-
----
-
-## Importação dos produtos
-
-```sh
-npm run seed
-```
-
-Importa os 21 produtos de `data/products.json` para o PostgreSQL. Idempotente.
-
----
-
-## Como iniciar
-
-```sh
-cp .env.example .env   # configurar variáveis
-npm run migrate        # criar tabelas
-npm run seed           # importar produtos
-npm run dev            # iniciar em http://localhost:3000
-```
-
----
-
-## Endpoints da API
-
-### Produtos
-| Método | Endpoint | Descrição |
-|---|---|---|
-| GET | `/api/v1/products` | Lista todos os produtos |
-| GET | `/api/v1/products/search?q=termo` | Pesquisa por nome/descrição/categoria |
-| GET | `/api/v1/products/:id` | Retorna produto por ID |
-| GET | `/api/v1/categories` | Lista categorias |
-
-Parâmetros opcionais: `category`, `sort` (`featured`, `low`, `high`, `new`)
-
-### Autenticação
-| Método | Endpoint | Descrição |
-|---|---|---|
-| GET | `/api/v1/auth/me` | Sessão ativa |
-| POST | `/api/v1/auth/register` | Cadastro |
-| POST | `/api/v1/auth/login` | Login |
-| POST | `/api/v1/auth/logout` | Logout |
-
----
-
-## Como executar os testes
-
-```sh
-npm run check    # verificação de sintaxe de todos os arquivos JS
-```
-
-Testes funcionais manuais:
-- Acesse http://localhost:3000 e navegue pelo catálogo
-- Use a barra de pesquisa (resultados vêm do banco via `/api/v1/products/search`)
-- Clique em **Entrar** para cadastrar uma conta e fazer login
-- Clique no seu nome para fazer logout
-
----
-
-## Segurança
-
-- Senhas: bcrypt 12 rounds — nunca armazenadas em texto puro
-- Cookies: `HttpOnly`, `Secure` (produção), `SameSite: strict` (produção)
-- Rate limiting: 300 req/15min global; 20 req/15min para rotas de auth
-- Bloqueio por IP após 10 tentativas de login falhas
-- Queries 100% parametrizadas (sem SQL Injection)
-- Headers de segurança via helmet
-- `SESSION_SECRET` e `DATABASE_URL` apenas em variável de ambiente
-
----
 
 ## Créditos
 
-Projeto acadêmico independente, sem afiliação à Riot Games. Produtos e fotografias usados como referência estão documentados em [docs/product-sources.json](docs/product-sources.json). Os preços são fictícios.
-
-## Aplicativo Android
-
-Aplicativo nativo para Android 8.0 ou superior, conectado à mesma API do site. Inclui catálogo, busca, categorias, favoritos, sacola, cadastro e login.
-
-Na home, o botão **Instalar app Android** baixa o APK diretamente. As instruções ficam em `/aplicativo`, e o arquivo está em `frontend/downloads/baazar-do-teemo.apk`.
-
-- [Código e instruções de compilação](mobile/README.md)
-- [Resultados dos testes da versão 1.0.2](docs/testes-android.md)
-- [Checkout e testes da versão 1.1.0](docs/checkout.md)
-
-O APK é uma versão de avaliação. O checkout do site e do Android registra pedidos simulados, sem cobrança ou envio real.
-
-## Finalização de compra
-
-Na sacola, escolha **Finalizar compra**, entre na sua conta e preencha um endereço fictício. Revise o resumo e confirme o pedido simulado. O frete demonstrativo custa R$ 19,90 e é gratuito a partir de R$ 299,00.
-
-O servidor calcula os valores a partir do catálogo, valida os tamanhos e quantidades e impede pedidos duplicados na repetição da mesma tentativa. O endereço e os itens ficam registrados com o pedido; a consulta exige a conta que fez a compra.
-
-A tabela `orders` é criada automaticamente ao iniciar o backend atualizado, ou por `npm run migrate`. A API usa `POST /api/v1/orders/quote`, `POST /api/v1/orders` e `GET /api/v1/orders/:id`. A confirmação exige o cabeçalho `Idempotency-Key` e o total revisado em `expectedTotalCents`.
-
-Execute `npm test` para verificar os cálculos, validações, gravação e acesso aos pedidos em um banco isolado. O APK usa as mesmas rotas e precisa do backend atualizado no Render.
+Projeto acadêmico independente, sem vínculo com a Riot Games. As referências dos produtos e das imagens estão em [`docs/product-sources.json`](./docs/product-sources.json).
