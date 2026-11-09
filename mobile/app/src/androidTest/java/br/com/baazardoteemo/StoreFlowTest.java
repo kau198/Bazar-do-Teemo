@@ -9,6 +9,8 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.action.ViewActions.*;
@@ -22,6 +24,7 @@ public class StoreFlowTest {
     private MockWebServer server;
     private ActivityScenario<MainActivity> activity;
     private volatile boolean unavailable;
+    private int orderPosts;
     private final String user = "{\"user\":{\"id\":1,\"name\":\"Explorador\",\"email\":\"teste@example.com\"}}";
     private final String catalog = "{\"items\":[{\"id\":1,\"name\":\"Pelúcia Teemo\",\"description\":\"Explorador\",\"category\":\"Pelúcias\",\"price\":159.90,\"sizes\":[],\"imageUrl\":\"\"},{\"id\":2,\"name\":\"Camiseta Jinx\",\"description\":\"Arcane\",\"category\":\"Vestuário\",\"price\":99.90,\"sizes\":[\"M\",\"G\"],\"imageUrl\":\"\"}],\"total\":2}";
 
@@ -35,6 +38,16 @@ public class StoreFlowTest {
                 if(path.endsWith("/products")) return unavailable ? response.setResponseCode(503).setBody("{\"error\":\"Loja temporariamente indisponível\"}") : response.setBody(catalog);
                 if(path.endsWith("/auth/login") || path.endsWith("/auth/register")) return response.setHeader("Set-Cookie","bazar.sid=test; Path=/; HttpOnly").setBody(user);
                 if(path.endsWith("/auth/logout")) return response.setHeader("Set-Cookie","bazar.sid=; Path=/; Max-Age=0").setBody("{\"message\":\"OK\"}");
+                if(path.endsWith("/orders/quote") || path.endsWith("/orders")) {
+                    try {
+                        JSONObject body=new JSONObject(request.getBody().readUtf8());
+                        JSONObject item=new JSONObject("{\"productId\":1,\"quantity\":1,\"size\":\"\",\"name\":\"Pelúcia Teemo\",\"unitPriceCents\":15990,\"lineTotalCents\":15990}");
+                        JSONObject order=new JSONObject().put("items",new JSONArray().put(item)).put("address",body.getJSONObject("address")).put("subtotalCents",15990).put("shippingCents",1990).put("totalCents",17980);
+                        if(path.endsWith("/quote"))return response.setBody(order.toString());
+                        if(request.getHeader("Idempotency-Key")==null)return response.setResponseCode(400).setBody("{\"error\":\"Missing key\"}");
+                        orderPosts++;order.put("id","11111111-1111-4111-8111-111111111111");return response.setBody(new JSONObject().put("order",order).toString());
+                    }catch(Exception error){return response.setResponseCode(400).setBody("{\"error\":\"Invalid checkout\"}");}
+                }
                 return response.setBody("bazar.sid=test".equals(request.getHeader("Cookie")) ? user : "{\"user\":null}");
             }
         });
@@ -114,6 +127,29 @@ public class StoreFlowTest {
         activity=ActivityScenario.launch(MainActivity.class);
         awaitText("21 produtos");
         screenshot("catalog-live");
+    }
+    @Test public void checkoutCollectsAddressAndConfirmsOrder() throws Exception {
+        onView(withText("Conta")).perform(click());
+        onView(withHint("E-mail")).perform(replaceText("teste@example.com"));
+        onView(withHint("Senha")).perform(replaceText("senha-teste-123"),closeSoftKeyboard());
+        onView(withText("Entrar")).perform(scrollTo(),click());awaitText("Olá, Explorador");
+        onView(withText("Loja")).perform(click());
+        onView(withHint("Buscar campeão ou produto")).perform(replaceText("Teemo"),closeSoftKeyboard());
+        onView(withText("Ver")).perform(scrollTo(),click());
+        onView(withText("Adicionar à sacola")).perform(scrollTo(),click());
+        onView(withText("Sacola (1)")).perform(click());
+        onView(withText("Finalizar compra")).perform(scrollTo(),click());
+        String[][] fields={{"Telefone com DDD","11999999999"},{"CEP","01001000"},{"Rua ou avenida","Rua de Teste"},{"Número ou S/N","10"},{"Bairro","Centro"},{"Cidade","Sao Paulo"}};
+        for(String[] field:fields)onView(withHint(field[0])).perform(scrollTo(),replaceText(field[1]),closeSoftKeyboard());
+        onView(withContentDescription("Estado de entrega")).perform(scrollTo(),click());
+        onView(withText("SP")).inRoot(isPlatformPopup()).perform(click());
+        onView(withText("Revisar pedido")).perform(scrollTo(),click());
+        awaitText("Confirmar simulação");
+        onView(withText("Confirmar simulação")).perform(click());
+        awaitText("Pedido simulado confirmado");
+        org.junit.Assert.assertEquals(1,orderPosts);
+        onView(withText("Continuar explorando")).perform(click());
+        onView(withText("Sacola (0)")).check(matches(isDisplayed()));
     }
     @Test public void registerAndOfflineCatalog() throws Exception {
         onView(withText("Conta")).perform(click());

@@ -18,6 +18,8 @@ dotenv.config();
 import pool from "./src/config/database.js";
 import productRoutes from "./src/routes/products.js";
 import authRoutes from "./src/routes/auth.js";
+import orderRoutes from "./src/routes/orders.js";
+import { up as ensureOrderSchema } from "./database/migrations/002_orders.js";
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -107,6 +109,7 @@ app.use(
 // ── Rotas da API ──────────────────────────────────────────────────────────────
 app.use("/api/v1", productRoutes);
 app.use("/api/v1/auth", authLimiter, authRoutes);
+app.use("/api/v1/orders", orderRoutes(pool));
 
 // ── Arquivos estáticos do front-end ───────────────────────────────────────────
 // frontend/ é a raiz pública; frontend/pages/ contém os HTMLs
@@ -129,6 +132,7 @@ app.use(
 // ── Rotas das páginas HTML ────────────────────────────────────────────────────
 // Maps URL paths → HTML files inside frontend/pages/
 const pageMap = {
+  "/checkout": "pages/checkout.html",
   "/aplicativo": "pages/aplicativo.html",
   "/aplicativo.html": "pages/aplicativo.html",
   "/":             "pages/index.html",
@@ -155,6 +159,7 @@ app.get("/{*path}", async (req, res, next) => {
 app.use(errorHandler);
 
 // ── Inicialização ─────────────────────────────────────────────────────────────
+await ensureOrderSchema(pool);
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Bazar do Teemo — http://localhost:${PORT} (${isProd ? "produção" : "desenvolvimento"})`);
 });

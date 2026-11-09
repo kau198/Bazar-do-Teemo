@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#183c31" />
+    <title>Finalizar compra — Baazar do Teemo</title>
+    <link
+      rel="icon"
+      href="/assets/icons/logo-teemo-transparent.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+  </head>
+  <body>
+    <header class="checkout-header">
+      <a class="brand" href="/"
+        ><img
+          src="/assets/icons/logo-teemo-transparent.png"
+          width="56"
+          height="56"
+          alt=""
+        /><span>baazar<span class="brand-sub">DO TEEMO</span></span></a
+      ><a href="/catalogo">← Continuar explorando</a>
+    </header>
+    <main class="checkout-page">
+      <p class="eyebrow">QUASE NO SEU INVENTÁRIO</p>
+      <h1>O último passo para o seu loot.</h1>
+      <p class="checkout-intro">
+        Confira sua sacola e conte para onde ela iria. Esta compra é uma
+        simulação, sem cobrança ou entrega real.
+      </p>
+      <p id="checkout-status" role="status">Carregando sua sacola…</p>
+      <section id="checkout-auth" class="checkout-card" hidden>
+        <p class="eyebrow">01 / SUA CONTA</p>
+        <h2>Vamos guardar seu pedido.</h2>
+        <p>Entre com sua conta da loja ou crie uma para continuar.</p>
+        <form id="checkout-auth-form">
+          <label id="checkout-name-label" hidden
+            >Seu nome<input
+              name="name"
+              autocomplete="name"
+              minlength="2"
+              maxlength="150"
+          /></label>
+          <label
+            >E-mail<input
+              name="email"
+              type="email"
+              autocomplete="username"
+              required
+              maxlength="254"
+          /></label>
+          <label
+            >Senha<input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+          /></label>
+          <label id="checkout-confirm-label" hidden
+            >Confirme a senha<input
+              name="confirmPassword"
+              type="password"
+              autocomplete="new-password"
+          /></label>
+          <button class="primary" type="submit" id="checkout-login">
+            Entrar e continuar
+          </button>
+          <button
+            class="text-button"
+            type="button"
+            id="checkout-register-toggle"
+          >
+            Criar uma conta
+          </button>
+        </form>
+      </section>
+      <div id="checkout-layout" class="checkout-layout" hidden>
+        <form id="checkout-form" class="checkout-card">
+          <p class="eyebrow">01 / ENDEREÇO DE ENTREGA</p>
+          <h2>Para onde vamos?</h2>
+          <p id="checkout-user"></p>
+          <fieldset id="address-fields">
+            <legend class="sr-only">Endereço de entrega</legend>
+            <div class="checkout-fields">
+              <label class="wide"
+                >Quem vai receber?<input
+                  name="recipient"
+                  autocomplete="shipping name"
+                  required
+                  minlength="2"
+                  maxlength="150"
+                  placeholder="Nome completo"
+              /></label>
+              <label
+                >Telefone com DDD<input
+                  name="phone"
+                  type="tel"
+                  autocomplete="shipping tel"
+                  required
+                  maxlength="20"
+                  pattern="[0-9 ()+\-]{10,20}"
+                  placeholder="(11) 99999-9999"
+              /></label>
+              <label
+                >CEP<input
+                  name="postalCode"
+                  inputmode="numeric"
+                  autocomplete="shipping postal-code"
+                  required
+                  pattern="[0-9]{5}-?[0-9]{3}"
+                  maxlength="9"
+                  placeholder="00000-000"
+              /></label>
+              <label class="wide"
+                >Rua ou avenida<input
+                  name="street"
+                  autocomplete="shipping address-line1"
+                  required
+                  minlength="2"
+                  maxlength="150"
+              /></label>
+              <label
+                >Número<input
+                  name="number"
+                  required
+                  maxlength="20"
+                  placeholder="123 ou S/N"
+              /></label>
+              <label
+                >Complemento <small>(opcional)</small
+                ><input
+                  name="complement"
+                  autocomplete="shipping address-line2"
+                  maxlength="100"
+                  placeholder="Apartamento, bloco…"
+              /></label>
+              <label class="wide"
+                >Bairro<input
+                  name="district"
+                  required
+                  minlength="2"
+                  maxlength="100"
+              /></label>
+              <label
+                >Cidade<input
+                  name="city"
+                  autocomplete="shipping address-level2"
+                  required
+                  minlength="2"
+                  maxlength="100"
+              /></label>
+              <label
+                >Estado<select
+                  name="state"
+                  autocomplete="shipping address-level1"
+                  required
+                >
+                  <option value="">Selecione</option>
+                </select></label
+              >
+            </div>
+          </fieldset>
+          <button class="primary" id="review-order" type="submit">
+            Revisar meu pedido →
+          </button>
+          <p class="checkout-note">
+            Use dados fictícios para testar. Não é necessário informar CPF ou
+            cartão.
+          </p>
+        </form>
+        <aside
+          class="checkout-card checkout-summary"
+          aria-label="Resumo do pedido"
+        >
+          <p class="eyebrow">02 / SUA SACOLA</p>
+          <h2>Uma boa escolha.</h2>
+          <div id="checkout-items"></div>
+          <div id="checkout-totals">
+            <p>Preencha o endereço para calcular o resumo.</p>
+          </div>
+          <section class="checkout-payment">
+            <h3>Pagamento de demonstração</h3>
+            <p>
+              Nenhum valor será cobrado. O pedido será registrado apenas para
+              testar a experiência.
+            </p>
+          </section>
+          <div id="address-review" hidden></div>
+          <button class="primary" id="place-order" type="button" disabled>
+            Confirmar pedido simulado
+          </button>
+          <p class="checkout-note">
+            Frete simulado: R$ 19,90. Grátis a partir de R$ 299,00. Prazo
+            ilustrativo de 5 a 10 dias úteis.
+          </p>
+        </aside>
+      </div>
+      <section
+        id="checkout-success"
+        class="checkout-card checkout-success"
+        hidden
+        tabindex="-1"
+      >
+        <div class="checkout-check" aria-hidden="true">✓</div>
+        <p class="eyebrow">TUDO CERTO, EXPLORADOR</p>
+        <h2>Seu loot está reservado.</h2>
+        <p>Pedido de demonstração confirmado. Não haverá cobrança ou envio.</p>
+        <p id="order-number"></p>
+        <div id="order-receipt"></div>
+        <a class="primary" href="/catalogo">Voltar ao bazar →</a>
+      </section>
+    </main>
+    <footer class="checkout-footer">
+      Baazar do Teemo · Projeto demonstrativo independente
+    </footer>
+    <script type="module" src="/js/checkout.js"></script>
+  </body>
+</html>

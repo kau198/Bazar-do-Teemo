@@ -20,6 +20,9 @@ public final class ApiClient {
     public void setBase(String value) { base = value; generation++; cookies.getCookieStore().removeAll(); }
     public void close() { generation++; executor.shutdownNow(); }
     public void request(String method, String route, JSONObject body, Callback callback) {
+        request(method,route,body,null,callback);
+    }
+    public void request(String method, String route, JSONObject body, String requestKey, Callback callback) {
         final String origin = base;
         final int version = generation;
         executor.execute(() -> {
@@ -33,6 +36,7 @@ public final class ApiClient {
                 connection.setInstanceFollowRedirects(false);
                 connection.setRequestMethod(method);
                 connection.setRequestProperty("Accept", "application/json");
+                if(requestKey!=null)connection.setRequestProperty("Idempotency-Key",requestKey);
                 if (body != null) {
                     connection.setDoOutput(true);
                     connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");

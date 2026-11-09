@@ -9,6 +9,7 @@ Cliente nativo em Java, com telas Android. Não usa WebView e não depende da in
 - Login e cadastro usando as rotas existentes da API.
 - Catálogo salvo para consulta offline, com aviso de desatualização.
 - Configuração do endereço da loja.
+- Checkout simulado com endereço, frete, revisão e confirmação do pedido.
 
 ## Conectar
 O aplicativo abre conectado a https://bazar-do-teemo.onrender.com. Não é necessário configurar um endereço na primeira abertura. Um servidor escolhido anteriormente é preservado; para alterá-lo, toque em **Servidor** e informe a origem do site, sem /api/v1.
@@ -32,4 +33,6 @@ Saída: app/build/outputs/apk/debug/app-debug.apk.
 Android mínimo: 8.0 (API 26).
 
 ## Limites
-Checkout, frete, pedidos, edição de perfil e tradução PT/EN não fazem parte desta versão. O modo offline não permite login nem cadastro. O APK debug permite HTTP para testar na rede local; release exige HTTPS e uma chave de assinatura própria.
+O checkout registra pedidos de demonstração na API: frete de R$ 19,90, gratuito a partir de R$ 299,00. Não há cobrança nem entrega real. Use dados fictícios para testar. A API precisa estar atualizada com as rotas `/api/v1/orders`; a tabela de pedidos é criada na inicialização do servidor.
+
+Edição de perfil e tradução PT/EN não fazem parte desta versão. O modo offline não permite login, cadastro ou confirmação de pedido. O APK debug permite HTTP para testar na rede local; release exige HTTPS e uma chave de assinatura própria.

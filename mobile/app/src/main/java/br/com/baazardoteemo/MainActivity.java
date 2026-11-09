@@ -224,7 +224,7 @@ public final class MainActivity extends Activity {
                 cart.put(key,cart.optInt(key)+count);persist();dialog.dismiss();notice("Produto adicionado à sacola.");render();
             }catch(Exception e){quantity.setError(e.getMessage());}
         }));
-        box.addView(text("Preço demonstrativo. Sem checkout nesta versão.",11,muted));dialog.show();
+        box.addView(text("Preço demonstrativo. Você pode simular a compra pela sacola.",11,muted));dialog.show();
     }
     private int cartCount(){int count=0;Iterator<String> keys=cart.keys();while(keys.hasNext()){int q=cart.optInt(keys.next());if(q>0&&q<=99)count+=q;}return count;}
     private JSONObject product(int id){for(int i=0;i<products.length();i++){JSONObject p=products.optJSONObject(i);if(p!=null&&p.optInt("id")==id)return p;}return null;}
@@ -249,10 +249,75 @@ public final class MainActivity extends Activity {
             controls.addView(button("Remover",()->{cart.remove(key);persist();render();}),new LinearLayout.LayoutParams(0,dp(48),1));item.addView(controls);content.addView(item);gap(content,12);
         }
         content.addView(heading("Subtotal  "+money.format(total/100.0),24));
-        content.addView(text("Valores de demonstração. Pagamento, frete e envio de pedidos ainda não estão disponíveis. A sacola fica salva neste aparelho.",14,muted));
+        content.addView(text("Finalize uma compra simulada com endereço e frete demonstrativo. Nenhuma cobrança ou entrega real.",14,muted));
+        content.addView(primary("Finalizar compra",this::checkout));
         if(offline)content.addView(text("Catálogo offline: confira os preços ao reconectar.",13,muted));
     }
     private void changeQuantity(String key,int delta){int n=cart.optInt(key)+delta;if(n>99){notice("Limite de 99 unidades.");return;}try{if(n<1)cart.remove(key);else cart.put(key,n);}catch(Exception ignored){}persist();render();}
+    private void checkout() {
+        if(user==null){screen="Conta";render();notice("Entre na sua conta para finalizar a compra simulada.");return;}
+        LinearLayout form=column();form.setPadding(dp(20),dp(12),dp(20),dp(16));
+        form.addView(text("Use dados fictícios. Não haverá cobrança ou entrega real.",13,muted));
+        String[] keys={"recipient","phone","postalCode","street","number","complement","district","city"};
+        String[] labels={"Quem vai receber?","Telefone com DDD","CEP","Rua ou avenida","Número ou S/N","Complemento (opcional)","Bairro","Cidade"};
+        Map<String,EditText> fields=new LinkedHashMap<>();
+        for(int i=0;i<keys.length;i++){
+            form.addView(text(labels[i],12,ink));
+            EditText input=field(labels[i],keys[i].equals("phone")?InputType.TYPE_CLASS_PHONE:keys[i].equals("postalCode")?InputType.TYPE_CLASS_NUMBER:InputType.TYPE_CLASS_TEXT);
+            fields.put(keys[i],input);form.addView(input);
+        }
+        fields.get("recipient").setText(user.optString("name"));
+        form.addView(text("Estado",12,ink));Spinner state=new Spinner(this);state.setContentDescription("Estado de entrega");
+        String[] states="Selecione AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split(" ");
+        state.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,states));form.addView(state);
+        TextView status=text("Frete simulado: R$ 19,90. Grátis a partir de R$ 299,00.",13,muted);form.addView(status);
+        Button review=primary("Revisar pedido",()->{});form.addView(review);
+        ScrollView scroll=new ScrollView(this);scroll.addView(form);
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle("Endereço de entrega").setView(scroll).setNegativeButton("Voltar",null).create();
+        review.setOnClickListener(v->{
+            if(state.getSelectedItemPosition()==0){status.setText("Selecione o estado de entrega.");return;}
+            JSONObject address=new JSONObject();JSONArray items=new JSONArray();JSONObject body=new JSONObject();
+            try {
+                for(String key:keys)address.put(key,fields.get(key).getText().toString().trim());address.put("state",state.getSelectedItem().toString());
+                Iterator<String> iterator=cart.keys();while(iterator.hasNext()){String key=iterator.next();String[] parts=key.split(":",2);JSONObject item=new JSONObject();item.put("productId",Integer.parseInt(parts[0]));item.put("quantity",cart.optInt(key));item.put("size",parts.length>1?parts[1]:"");items.put(item);}
+                body.put("items",items);body.put("address",address);
+            }catch(Exception error){status.setText("Confira os itens da sacola.");return;}
+            review.setEnabled(false);status.setText("Calculando resumo…");
+            api.request("POST","/orders/quote",body,(data,error)->{
+                if(destroyed)return;review.setEnabled(true);
+                if(error!=null){status.setText(error);return;}status.setText("Confira os dados antes de confirmar.");
+                try{body.put("address",data.getJSONObject("address"));body.put("expectedTotalCents",data.getLong("totalCents"));confirmOrder(body,data,dialog);}catch(Exception invalid){status.setText("Não foi possível calcular o pedido.");}
+            });
+        });dialog.show();
+    }
+    private String orderSummary(JSONObject order) {
+        StringBuilder summary=new StringBuilder();JSONArray items=order.optJSONArray("items");
+        if(items!=null)for(int i=0;i<items.length();i++){JSONObject item=items.optJSONObject(i);if(item==null)continue;summary.append(item.optInt("quantity")).append(" × ").append(item.optString("name"));if(!item.optString("size").isEmpty())summary.append(" · ").append(item.optString("size"));summary.append("\n");}
+        summary.append("\nProdutos: ").append(money.format(order.optLong("subtotalCents")/100.0));
+        summary.append("\nFrete simulado: ").append(money.format(order.optLong("shippingCents")/100.0));
+        summary.append("\nTotal: ").append(money.format(order.optLong("totalCents")/100.0));
+        JSONObject a=order.optJSONObject("address");if(a!=null)summary.append("\n\n").append(a.optString("recipient")).append("\n").append(a.optString("street")).append(", ").append(a.optString("number")).append(" ").append(a.optString("complement")).append("\n").append(a.optString("district")).append(" · ").append(a.optString("city")).append("/").append(a.optString("state")).append("\nCEP ").append(a.optString("postalCode"));
+        return summary.toString();
+    }
+    private void confirmOrder(JSONObject body,JSONObject quote,AlertDialog addressDialog) {
+        LinearLayout box=column();box.setPadding(dp(20),dp(12),dp(20),dp(16));box.addView(text(orderSummary(quote),15,ink));
+        box.addView(text("Pagamento de demonstração. Nenhuma cobrança ou envio real. Prazo ilustrativo: 5 a 10 dias úteis.",13,muted));
+        TextView status=text("",13,muted);box.addView(status);ScrollView scroll=new ScrollView(this);scroll.addView(box);
+        String requestKey=UUID.randomUUID().toString();
+        AlertDialog confirm=new AlertDialog.Builder(this).setTitle("Revisar pedido").setView(scroll).setNegativeButton("Voltar",null).setPositiveButton("Confirmar simulação",null).create();
+        confirm.setOnShowListener(ignored->confirm.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            confirm.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);confirm.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);confirm.setCancelable(false);status.setText("Registrando pedido…");
+            api.request("POST","/orders",body,requestKey,(data,error)->{
+                if(destroyed)return;
+                if(error!=null){status.setText(error+" Tente confirmar novamente; a mesma tentativa não gera outro pedido.");confirm.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);confirm.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(true);confirm.setCancelable(true);return;}
+                JSONObject order=data.optJSONObject("order");if(order==null){status.setText("Resposta inválida. Tente novamente.");confirm.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);return;}
+                JSONArray items=body.optJSONArray("items");
+                for(int i=0;i<items.length();i++){JSONObject item=items.optJSONObject(i);String key=item.optInt("productId")+(item.optString("size").isEmpty()?"":":"+item.optString("size"));int remaining=cart.optInt(key)-item.optInt("quantity");try{if(remaining>0)cart.put(key,remaining);else cart.remove(key);}catch(Exception ignoredError){}}
+                persist();confirm.dismiss();addressDialog.dismiss();render();
+                new AlertDialog.Builder(this).setTitle("Pedido simulado confirmado").setMessage("Pedido "+order.optString("id")+"\n\n"+orderSummary(order)+"\n\nNenhum valor foi cobrado. Não haverá entrega real.").setPositiveButton("Continuar explorando",(d,w)->{screen="Loja";render();}).show();
+            });
+        }));confirm.show();
+    }
     private void showAccount() {
         content.addView(text("SUA CONTA NO BAZAR",10,green));
         if(user!=null) {

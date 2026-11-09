@@ -207,4 +207,14 @@ Na home, o botão **Instalar app Android** baixa o APK diretamente. As instruç�
 - [Código e instruções de compilação](mobile/README.md)
 - [Resultados dos testes da versão 1.0.2](docs/testes-android.md)
 
-O APK é uma versão de avaliação. Pagamentos, frete e envio de pedidos ainda não estão disponíveis.
+O APK é uma versão de avaliação. O checkout do site e do Android registra pedidos simulados, sem cobrança ou envio real.
+
+## Finalização de compra
+
+Na sacola, escolha **Finalizar compra**, entre na sua conta e preencha um endereço fictício. Revise o resumo e confirme o pedido simulado. O frete demonstrativo custa R$ 19,90 e é gratuito a partir de R$ 299,00.
+
+O servidor calcula os valores a partir do catálogo, valida os tamanhos e quantidades e impede pedidos duplicados na repetição da mesma tentativa. O endereço e os itens ficam registrados com o pedido; a consulta exige a conta que fez a compra.
+
+A tabela `orders` é criada automaticamente ao iniciar o backend atualizado, ou por `npm run migrate`. A API usa `POST /api/v1/orders/quote`, `POST /api/v1/orders` e `GET /api/v1/orders/:id`. A confirmação exige o cabeçalho `Idempotency-Key` e o total revisado em `expectedTotalCents`.
+
+Execute `npm test` para verificar os cálculos, validações, gravação e acesso aos pedidos em um banco isolado. O APK usa as mesmas rotas e precisa do backend atualizado no Render.

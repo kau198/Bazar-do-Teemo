@@ -327,7 +327,7 @@ async function initializeShop() {
         .join("") ||
       '<p class="empty">Sua sacola está vazia. Encontre algo com a sua cara na loja.</p>';
     $("#cart-footer").innerHTML = entries.length
-      ? `<div class="total"><span>Subtotal</span><strong>${money(entries.reduce((t, e) => t + e.product.price * e.qty, 0))}</strong></div><p class="cart-warning">Coleção demonstrativa. Pagamento, frete e envio de pedidos ainda não estão disponíveis.</p><button class="primary" data-close>Continuar comprando ↗︎</button>`
+      ? `<div class="total"><span>Subtotal</span><strong>${money(entries.reduce((t, e) => t + e.product.price * e.qty, 0))}</strong></div><p class="cart-warning">Finalize uma compra simulada com endereço e frete demonstrativo. Nenhuma cobrança ou entrega real.</p><a class="primary" href="/checkout">Finalizar compra →</a><button class="text-button" data-close>Continuar comprando</button>`
       : "";
   }
   function openCart() {
