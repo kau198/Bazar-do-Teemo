@@ -14,7 +14,10 @@
       href="/assets/icons/logo-teemo-transparent.png"
       type="image/png"
     />
-    <link rel="apple-touch-icon" href="/assets/icons/logo-teemo-transparent.png" />
+    <link
+      rel="apple-touch-icon"
+      href="/assets/icons/logo-teemo-transparent.png"
+    />
     <link rel="stylesheet" href="/css/style.css" />
     <title>Baazar do Teemo — Seu universo fora da tela</title>
   </head>
@@ -55,9 +58,21 @@
         </form>
         <div class="actions">
           <button id="auth-btn" class="auth-btn" aria-label="Entrar na conta">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-            <span class="auth-btn-label" id="auth-btn-label">Entrar</span>
-          </button
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            <span class="auth-btn-label" id="auth-btn-label"
+              >Entrar</span
+            ></button
           ><button id="theme" aria-label="Alternar tema">
             <svg
               viewBox="0 0 24 24"
@@ -123,6 +138,20 @@
         ><a class="nav-about" href="/contato">Conheça o bazar ↗</a>
       </nav>
     </header>
+    <aside class="app-install-strip" aria-label="Aplicativo Android">
+      <div>
+        <strong>O baazar vai com você.</strong
+        ><span
+          >Instale nosso app no Android e leve seus favoritos no bolso.</span
+        >
+      </div>
+      <div class="app-install-actions">
+        <a class="primary" href="/downloads/baazar-do-teemo.apk" download
+          >Instalar app Android ↓</a
+        >
+        <a href="/aplicativo">Como instalar</a>
+      </div>
+    </aside>
     <main id="main">
       <section class="hero">
         <div class="hero-copy">
@@ -357,8 +386,11 @@
         <h2>Leve o bazar com você.</h2>
         <p>Os seus favoritos, na tela inicial do celular.</p>
       </div>
-      <button class="primary" id="install">
-        Instalar aplicativo
+      <a class="primary" href="/downloads/baazar-do-teemo.apk" download
+        >Instalar app Android ↓</a
+      >
+      <button class="text-button" id="install">
+        Adicionar site à tela inicial
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -388,8 +420,7 @@
         <div>
           <h3>Explore o bazar</h3>
           <a href="/catalogo">Todos os produtos</a
-          ><a href="/catalogo?categoria=Pelúcias"
-            >Pelúcias e colecionáveis</a
+          ><a href="/catalogo?categoria=Pelúcias">Pelúcias e colecionáveis</a
           ><a href="/catalogo?categoria=Vestuário">Vestuário</a>
         </div>
         <div>
@@ -433,10 +464,28 @@
     <!-- Auth Modal -->
     <dialog id="auth-modal" aria-label="Autenticação">
       <div class="auth-modal-inner">
-        <button data-close class="auth-modal-close" aria-label="Fechar">×</button>
+        <button data-close class="auth-modal-close" aria-label="Fechar">
+          ×
+        </button>
         <div class="auth-tabs" role="tablist">
-          <button role="tab" id="tab-login" aria-selected="true" aria-controls="panel-login" class="auth-tab selected">Entrar</button>
-          <button role="tab" id="tab-register" aria-selected="false" aria-controls="panel-register" class="auth-tab">Cadastrar</button>
+          <button
+            role="tab"
+            id="tab-login"
+            aria-selected="true"
+            aria-controls="panel-login"
+            class="auth-tab selected"
+          >
+            Entrar
+          </button>
+          <button
+            role="tab"
+            id="tab-register"
+            aria-selected="false"
+            aria-controls="panel-register"
+            class="auth-tab"
+          >
+            Cadastrar
+          </button>
         </div>
 
         <!-- Login panel -->
@@ -444,14 +493,46 @@
           <form id="login-form" novalidate>
             <label class="auth-label">
               E-mail
-              <input type="email" id="login-email" name="email" autocomplete="email" required placeholder="seu@email.com" />
+              <input
+                type="email"
+                id="login-email"
+                name="email"
+                autocomplete="email"
+                required
+                placeholder="seu@email.com"
+              />
             </label>
             <label class="auth-label">
               Senha
               <div class="auth-password-wrap">
-                <input type="password" id="login-password" name="password" autocomplete="current-password" required placeholder="••••••••" />
-                <button type="button" class="auth-toggle-pw" aria-label="Mostrar senha" data-target="login-password">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <input
+                  type="password"
+                  id="login-password"
+                  name="password"
+                  autocomplete="current-password"
+                  required
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  class="auth-toggle-pw"
+                  aria-label="Mostrar senha"
+                  data-target="login-password"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"
+                    />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
                 </button>
               </div>
             </label>
@@ -463,31 +544,86 @@
         </div>
 
         <!-- Register panel -->
-        <div id="panel-register" role="tabpanel" aria-labelledby="tab-register" hidden>
+        <div
+          id="panel-register"
+          role="tabpanel"
+          aria-labelledby="tab-register"
+          hidden
+        >
           <form id="register-form" novalidate>
             <label class="auth-label">
               Nome completo
-              <input type="text" id="reg-name" name="name" autocomplete="name" required placeholder="Seu nome" />
+              <input
+                type="text"
+                id="reg-name"
+                name="name"
+                autocomplete="name"
+                required
+                placeholder="Seu nome"
+              />
             </label>
             <label class="auth-label">
               E-mail
-              <input type="email" id="reg-email" name="email" autocomplete="email" required placeholder="seu@email.com" />
+              <input
+                type="email"
+                id="reg-email"
+                name="email"
+                autocomplete="email"
+                required
+                placeholder="seu@email.com"
+              />
             </label>
             <label class="auth-label">
               Senha <small>(mínimo 8 caracteres)</small>
               <div class="auth-password-wrap">
-                <input type="password" id="reg-password" name="password" autocomplete="new-password" required placeholder="••••••••" />
-                <button type="button" class="auth-toggle-pw" aria-label="Mostrar senha" data-target="reg-password">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <input
+                  type="password"
+                  id="reg-password"
+                  name="password"
+                  autocomplete="new-password"
+                  required
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  class="auth-toggle-pw"
+                  aria-label="Mostrar senha"
+                  data-target="reg-password"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"
+                    />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
                 </button>
               </div>
             </label>
             <label class="auth-label">
               Confirmar senha
-              <input type="password" id="reg-confirm" name="confirmPassword" autocomplete="new-password" required placeholder="••••••••" />
+              <input
+                type="password"
+                id="reg-confirm"
+                name="confirmPassword"
+                autocomplete="new-password"
+                required
+                placeholder="••••••••"
+              />
             </label>
             <p id="register-error" class="auth-error" role="alert" hidden></p>
-            <button type="submit" class="primary auth-submit" id="register-submit">
+            <button
+              type="submit"
+              class="primary auth-submit"
+              id="register-submit"
+            >
               Criar conta <span class="auth-spinner" hidden>…</span>
             </button>
           </form>
@@ -495,9 +631,15 @@
 
         <!-- Logged-in panel -->
         <div id="panel-loggedin" hidden>
-          <p class="auth-welcome">Olá, <strong id="auth-user-name"></strong>!</p>
-          <p class="auth-welcome-sub">Você está conectado ao Baazar do Teemo.</p>
-          <button class="primary auth-submit" id="logout-btn">Sair da conta</button>
+          <p class="auth-welcome">
+            Olá, <strong id="auth-user-name"></strong>!
+          </p>
+          <p class="auth-welcome-sub">
+            Você está conectado ao Baazar do Teemo.
+          </p>
+          <button class="primary auth-submit" id="logout-btn">
+            Sair da conta
+          </button>
         </div>
       </div>
     </dialog>

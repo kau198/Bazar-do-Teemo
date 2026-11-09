@@ -36,6 +36,8 @@ if (!process.env.SESSION_SECRET) {
 }
 
 const app = express();
+// Render termina HTTPS no proxy antes de encaminhar a requisição ao Express.
+if (isProd) app.set("trust proxy", 1);
 
 // ── Segurança ─────────────────────────────────────────────────────────────────
 app.use(
@@ -112,6 +114,11 @@ app.use(
   express.static(frontendDir, {
     index: false,
     setHeaders(res, filePath) {
+      if (filePath.endsWith(".apk")) {
+        res.setHeader("Content-Type", "application/vnd.android.package-archive");
+        res.setHeader("Content-Disposition", 'attachment; filename="baazar-do-teemo.apk"');
+        res.setHeader("Cache-Control", "no-cache");
+      }
       if (filePath.endsWith(".webmanifest")) {
         res.setHeader("Content-Type", "application/manifest+json");
       }
@@ -122,6 +129,8 @@ app.use(
 // ── Rotas das páginas HTML ────────────────────────────────────────────────────
 // Maps URL paths → HTML files inside frontend/pages/
 const pageMap = {
+  "/aplicativo": "pages/aplicativo.html",
+  "/aplicativo.html": "pages/aplicativo.html",
   "/":             "pages/index.html",
   "/catalogo":     "pages/catalogo.html",
   "/catalogo.html":"pages/catalogo.html",

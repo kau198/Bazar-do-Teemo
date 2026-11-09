@@ -7,3 +7,13 @@ node_modules/
 Thumbs.db
 docs/preview-*.png
 docs/logo-edit.md
+mobile/.gradle/
+mobile/**/build/
+mobile/local.properties
+*.apk
+!frontend/downloads/baazar-do-teemo.apk
+*.aab
+*.jks
+*.keystore
+
+mobile/dist/

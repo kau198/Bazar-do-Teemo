@@ -10,7 +10,7 @@ Referência: Atividades EX1 a EX9, Fatec Americana, 2026. O documento é materia
 | EX4       | API REST autenticada, JSON, CORS e documentação                                                                     | Etapa de backend                                                        |
 | EX5       | Internacionalização nativa do aplicativo                                                                            | Etapa do aplicativo                                                     |
 | EX6       | Site consumindo a API; autenticação, carregamento e erros                                                           | Depois do backend                                                       |
-| EX7       | Aplicativo com login, listagem, detalhe e cadastro                                                                  | Etapa do aplicativo; PWA não substitui essa entrega                     |
+| EX7       | Aplicativo com login, listagem, detalhe e cadastro                                                                  | Cliente Android implementado em mobile/; APK de testes compilado. Validação com API real pendente do endereço do servidor.                     |
 | EX9       | ERP: cadastros, pedidos, estoque, financeiro, perfis e logs                                                         | Etapa posterior                                                         |
 
 ## Direção visual

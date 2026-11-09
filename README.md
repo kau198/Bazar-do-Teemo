@@ -197,3 +197,14 @@ Testes funcionais manuais:
 ## Créditos
 
 Projeto acadêmico independente, sem afiliação à Riot Games. Produtos e fotografias usados como referência estão documentados em [docs/product-sources.json](docs/product-sources.json). Os preços são fictícios.
+
+## Aplicativo Android
+
+Aplicativo nativo para Android 8.0 ou superior, conectado à mesma API do site. Inclui catálogo, busca, categorias, favoritos, sacola, cadastro e login.
+
+Na home, o botão **Instalar app Android** baixa o APK diretamente. As instruções ficam em `/aplicativo`, e o arquivo está em `frontend/downloads/baazar-do-teemo.apk`.
+
+- [Código e instruções de compilação](mobile/README.md)
+- [Resultados dos testes da versão 1.0.2](docs/testes-android.md)
+
+O APK é uma versão de avaliação. Pagamentos, frete e envio de pedidos ainda não estão disponíveis.
