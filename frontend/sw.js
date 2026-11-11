@@ -54,6 +54,8 @@ self.addEventListener("activate", (e) =>
 );
 self.addEventListener("fetch", (e) => {
   if (
+    new URL(e.request.url).pathname.startsWith("/api/") ||
+    new URL(e.request.url).pathname.startsWith("/admin") ||
     e.request.method !== "GET" ||
     !e.request.url.startsWith(self.registration.scope)
   )

@@ -36,7 +36,7 @@ export async function loginUser({ email, password, ip }) {
 
   const normalizedEmail = email.trim().toLowerCase();
   const { rows } = await query(
-    `SELECT id, name, email, password_hash FROM users WHERE email = $1`,
+    `SELECT id, name, email, role, password_hash FROM users WHERE email = $1`,
     [normalizedEmail]
   );
 
@@ -54,12 +54,12 @@ export async function loginUser({ email, password, ip }) {
   }
 
   loginAttempts.delete(key);
-  return { id: user.id, name: user.name, email: user.email };
+  return { id: user.id, name: user.name, email: user.email, role: user.role };
 }
 
 export async function getUserById(id) {
   const { rows } = await query(
-    `SELECT id, name, email, created_at FROM users WHERE id = $1`,
+    `SELECT id, name, email, role, created_at FROM users WHERE id = $1`,
     [id]
   );
   return rows[0] || null;

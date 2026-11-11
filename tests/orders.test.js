@@ -54,6 +54,7 @@ async function setup() {
       p.currency,
     ]);
   await up(pool);
+  await pool.query("ALTER TABLE products ADD COLUMN stock INTEGER; ALTER TABLE products ADD COLUMN active BOOLEAN DEFAULT TRUE; UPDATE products SET active=TRUE");
   return pool;
 }
 test("calcula centavos e frete sem aceitar preços do cliente", () => {

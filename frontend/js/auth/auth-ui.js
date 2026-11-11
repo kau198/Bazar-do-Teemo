@@ -157,6 +157,16 @@ function refreshModalState() {
     tabsEl?.setAttribute("hidden", "");
     if (loggedPanel) {
       loggedPanel.removeAttribute("hidden");
+      let adminLink = loggedPanel.querySelector("[data-admin-link]");
+      if (!adminLink) {
+        adminLink = document.createElement("a");
+        adminLink.href = "/admin";
+        adminLink.dataset.adminLink = "";
+        adminLink.textContent = "Abrir painel administrativo →";
+        adminLink.style.cssText = "display:block;margin:18px 0;color:var(--green);font-weight:600";
+        loggedPanel.append(adminLink);
+      }
+      adminLink.hidden = currentUser.role !== "admin";
       const nameEl = $("#auth-user-name");
       if (nameEl) nameEl.textContent = currentUser.name;
     }

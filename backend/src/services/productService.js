@@ -3,13 +3,13 @@ import { NotFoundError } from "../utils/errors.js";
 
 export async function getProducts({ category, sort } = {}) {
   let sql = `SELECT id, name, description, category, price, currency,
-                    image_url, source_url, sizes, tag, art
-             FROM products`;
+                    image_url, source_url, sizes, tag, art, stock
+             FROM products WHERE active = TRUE`;
   const params = [];
 
   if (category && category !== "Todos") {
     params.push(category);
-    sql += ` WHERE category = $${params.length}`;
+    sql += ` AND category = $${params.length}`;
   }
 
   const orderMap = { low: "price ASC", high: "price DESC", new: "id DESC", featured: "id ASC" };
@@ -22,8 +22,8 @@ export async function getProducts({ category, sort } = {}) {
 export async function getProductById(id) {
   const { rows } = await query(
     `SELECT id, name, description, category, price, currency,
-            image_url, source_url, sizes, tag, art
-     FROM products WHERE id = $1`,
+            image_url, source_url, sizes, tag, art, stock
+     FROM products WHERE active = TRUE AND id = $1`,
     [id]
   );
   if (!rows.length) throw new NotFoundError(`Produto ${id} não encontrado.`);
@@ -33,9 +33,9 @@ export async function getProductById(id) {
 export async function searchProducts(term, { category, sort } = {}) {
   const params = [`%${term.trim().toLowerCase()}%`];
   let sql = `SELECT id, name, description, category, price, currency,
-                    image_url, source_url, sizes, tag, art
+                    image_url, source_url, sizes, tag, art, stock
              FROM products
-             WHERE (
+             WHERE active = TRUE AND (
                unaccent(lower(name))           LIKE unaccent($1)
                OR unaccent(lower(description))  LIKE unaccent($1)
                OR unaccent(lower(category))     LIKE unaccent($1)
@@ -62,13 +62,14 @@ export async function searchProducts(term, { category, sort } = {}) {
 }
 
 export async function getCategories() {
-  const { rows } = await query(`SELECT DISTINCT category FROM products ORDER BY category`);
+  const { rows } = await query(`SELECT DISTINCT category FROM products WHERE active = TRUE ORDER BY category`);
   return rows.map((r) => r.category);
 }
 
 function normalizeProduct(row) {
   return {
     id: row.id,
+    stock: row.stock,
     name: row.name,
     description: row.description,
     category: row.category,

@@ -29,6 +29,7 @@ for (const p of products)
     p.sizes,
   ]);
 await up(pool);
+  await pool.query("ALTER TABLE products ADD COLUMN stock INTEGER; ALTER TABLE products ADD COLUMN active BOOLEAN DEFAULT TRUE; UPDATE products SET active=TRUE");
 const app = express();
 app.use(express.json());
 app.use(
