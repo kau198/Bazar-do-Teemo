@@ -74,6 +74,9 @@ export function priceOrder(input, products) {
       throw new ValidationError(
         "Um produto não está mais disponível. Revise sua sacola.",
       );
+    const needed = input.items.filter(i => i.productId === item.productId).reduce((sum,i) => sum+i.quantity,0);
+    if (product.active === false || (product.stock != null && product.stock < needed))
+      throw new ConflictError(`Estoque insuficiente para ${product.name}. Revise a sacola.`);
     const sizes = product.sizes || [];
     if (
       (sizes.length && !sizes.includes(item.size)) ||
@@ -92,6 +95,7 @@ export function priceOrder(input, products) {
     return {
       ...item,
       name: product.name,
+      stockManaged: product.stock != null,
       unitPriceCents,
       lineTotalCents: unitPriceCents * item.quantity,
     };
@@ -129,12 +133,12 @@ function receipt(row) {
   };
 }
 export function createOrderService(pool) {
-  async function quote(body, db = pool) {
+  async function quote(body, db = pool, lock = false) {
     const input = validateCheckout(body);
     const ids = [...new Set(input.items.map((i) => i.productId))];
     const placeholders = ids.map((_, i) => `$${i + 1}`).join(",");
     const { rows } = await db.query(
-      `SELECT id, name, price, currency, sizes FROM products WHERE id IN (${placeholders})`,
+      `SELECT id, name, price, currency, sizes, stock, active FROM products WHERE active = TRUE AND id IN (${placeholders}) ORDER BY id${lock ? " FOR UPDATE" : ""}`,
       ids,
     );
     return priceOrder(input, rows);
@@ -172,7 +176,7 @@ export function createOrderService(pool) {
           await db.query("COMMIT");
           return receipt(previous.rows[0]);
         }
-        const priced = await quote(body, db);
+        const priced = await quote(body, db, true);
         if (priced.totalCents !== body.expectedTotalCents)
           throw new ConflictError(
             "O preço mudou. Revise o resumo antes de confirmar novamente.",
@@ -192,6 +196,12 @@ export function createOrderService(pool) {
             priced.totalCents,
           ],
         );
+        if (result.rows.length) {
+          for (const item of priced.items.filter(i => i.stockManaged)) {
+            const updated = await db.query("UPDATE products SET stock=stock-$1::integer WHERE id=$2 AND stock >= $1::integer RETURNING id", [item.quantity,item.productId]);
+            if (!updated.rows.length) throw new ConflictError("O estoque mudou. Revise a sacola.");
+          }
+        }
         const row =
           result.rows[0] ||
           (

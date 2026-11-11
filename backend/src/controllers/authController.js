@@ -24,7 +24,7 @@ export async function register(req, res, next) {
     const user = await registerUser({ name, email, password });
     req.session.userId = user.id;
     req.session.userName = user.name;
-    res.status(201).json({ user: { id: user.id, name: user.name, email: user.email } });
+    res.status(201).json({ user: { id: user.id, name: user.name, email: user.email, role: user.role ?? "customer" } });
   } catch (err) {
     next(err);
   }
@@ -42,7 +42,7 @@ export async function login(req, res, next) {
     );
     req.session.userId = user.id;
     req.session.userName = user.name;
-    res.json({ user: { id: user.id, name: user.name, email: user.email } });
+    res.json({ user: { id: user.id, name: user.name, email: user.email, role: user.role ?? "customer" } });
   } catch (err) {
     next(err);
   }
@@ -68,7 +68,7 @@ export async function me(req, res, next) {
       req.session.destroy(() => {});
       return res.json({ user: null });
     }
-    res.json({ user: { id: user.id, name: user.name, email: user.email } });
+    res.json({ user: { id: user.id, name: user.name, email: user.email, role: user.role ?? "customer" } });
   } catch (err) {
     next(err);
   }

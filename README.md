@@ -63,6 +63,10 @@ npm run dev      # Inicia o servidor
 
 Abra [http://localhost:3000](http://localhost:3000).
 
+## Administração da loja
+
+O painel em `/admin` permite gerenciar produtos, preços, estoque e pedidos de demonstração. Após migrar o banco, conceda acesso a uma conta já cadastrada com `npm run admin -- seu-email@exemplo.com`. Consulte o [guia do painel administrativo](./docs/admin.md) para instalação, permissões e funcionamento do estoque.
+
 ## Instalar ou compilar o app Android
 
 O APK de avaliação é compatível com **Android 8.0 (API 26) ou superior**. O app usa o endereço do site no Render por padrão. Para testar com o backend local, abra **Servidor** no app e informe `http://IP-DO-COMPUTADOR:3000`, com o computador e o celular na mesma rede. Para finalizar pedidos pelo app, o servidor precisa oferecer as rotas de checkout.
